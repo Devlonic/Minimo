@@ -1,0 +1,17 @@
+﻿@model List<PreviewPost>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="flex-wrap">
+    @foreach (var post in Model) {
+        <div class="post-item">
+            <div class="image-thumbnail"></div>
+            <h3>@post.Category.Name</h3>
+            <h1>@post.Title</h1>
+            <p>@post.Description.Substring(0, Math.Min(post.Description.Length, 150))</p>
+        </div>
+    }
+</div>
+
