@@ -4,58 +4,65 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Minimo</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Minimo.styles.css" asp-append-version="true" />
+    <link href="~/css/mi.css" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Minimo</a>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">LIFESTYLE</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">PHOTODIARY</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">MUSIC</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">TRAVEL</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+    <header id="header" class="fixed">
+        <nav >
+            <a class="company nav-link" asp-area="" asp-controller="Home" asp-action="Index">Minimø</a>
+            <ul class="nav-links-container">
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">LIFESTYLE</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">PHOTOGRAPHY</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">MUSIC</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">TRAVEL</a>
+                </li>
+            </ul>
         </nav>
     </header>
     
-    
-    
-    <div class="main-content">
-        <div class="promo">
-            
+    <div class="marginned">
+        <div class="main-content">
+            @RenderBody()
         </div>
-        <section>
-            <h3>PHOTODIARY</h3>
-            <h1>The prefect weekend getaway</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Viverra nam libero justo laoreet. Tellus mauris a diam maecenas sed enim ut. Pellentesque nec nam aliquam sem et. Mus mauris vitae ultricies leo integer malesuada nunc vel. Laoreet sit amet cursus sit amet dictum sit amet justo. Senectus et netus et malesuada fames. Tempus egestas sed sed risus pretium quam. Nunc id cursus metus aliquam eleifend. Pulvinar neque laoreet suspendisse interdum consectetur libero id faucibus.</p>
-            <span>LEAVE A COMMENT</span>
-        </section>
 
+        <footer class="ourfooter background-gray">
+            <nav class="background-gray">
+                <ul class="nav-links-container">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Terms and conditions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Privacy</a>
+                    </li>
+                </ul>
 
-        @RenderBody()
+                <ul class="nav-links-container">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Follow</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">F</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">T</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">I</a>
+                    </li>
+                </ul>
+            </nav>
+        </footer>
     </div>
-
-    <footer class="footer text-muted">
-        <div class="container">
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

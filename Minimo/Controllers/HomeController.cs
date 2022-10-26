@@ -11,9 +11,37 @@ namespace Minimo.Controllers {
         }
 
         public async Task<IActionResult> Index() {
-            return View(await _postsRepository.GetPreviewPostListAsync());
+            IndexViewModel vm = new IndexViewModel(
+                await _postsRepository.GetMainPostAsync(),
+                await _postsRepository.GetPreviewPostListAsync(0, 4), 
+                await _postsRepository.GetPreviewPostListAsync(4, 2));
+            return View(vm);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Post(int id) {
+            var post = await _postsRepository.GetPostAsync(id);
+            PostViewModel vm = new PostViewModel() {
+                Post = post,
+                AlsoLikePosts = await _postsRepository.GetRandomPreviewPostListAsync(3,post),
+                Comments = await _postsRepository.GetCommentsForPostAsync(post),
+                MostCommentedPosts = await _postsRepository.GetTopCommentedPosts(3),
+            };
+            return View(vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddComment(int? idPost, string? authorName, string? text, int? replyTo) {
+            if(idPost is not null && authorName is not null && text is not null) {
+                await _postsRepository.PushComment(idPost.Value, authorName, text, replyTo);
+            }
+            return RedirectToAction(nameof(Post), "Home", new { id = idPost });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SubscribeToNewsletter(string email) {
+            return RedirectToAction(nameof(Index));
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error() {

@@ -1,0 +1,155 @@
+﻿@model PostViewModel
+
+<section class="main-post">
+
+    <div class="main-post-item margin">
+        <div style="background-image: url('/img/@Model.Post.ThumbImage.Path')" class="promo-img"></div>
+    </div>
+
+    <div class="post-wrapper">
+        <div class="post">
+
+            <div id="contentWrapper" class="content-wrapper slided">
+                <div class="content">
+                    <div class="fixed-width">
+                        <div class="">
+                            <h3>@Model.Post.Category.Name</h3>
+                            <h1>@Model.Post.Title</h1>
+                            <p>@Model.Post.Description</p>
+                        </div>
+                        <div class="images">
+                            @foreach ( var photo in Model.Post.Images ) {
+                                if ( photo is not null && photo.ID != Model.Post.ThumbImage.ID ) {
+                                    <img src="/img/@photo.Path" />
+                                }
+                            }
+                        </div>
+                        <div class="share-bar">
+                            <ul class="vertical-ul">
+                                <li>
+                                    <span class="gray-title share-item">Share</span>
+                                </li>
+                                <li>
+                                    <a class="material-icons share-item" href="#">facebook</a>
+                                </li>
+                                <li>
+                                    <a class="material-icons share-item" href="#">facebook</a>
+                                </li>
+                                <li>
+                                    <a class="material-icons share-item" href="#">facebook</a>
+                                </li>
+                                <li>
+                                    <a class="material-icons share-item" href="#">facebook</a>
+                                </li>
+                                <li>
+                                    <a class="material-icons share-item" href="#">facebook</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button id="sidebarSlider" onclick="slideSidebar()">slide</button>
+
+            <div id="sidebarWrapper" class="sidebar-wrapper fixed shown">
+                <div class="sidebar margin">
+                    <div>
+                        <img class="full-width" src="~/img/albanets.jpg" />
+                        <h1>About me</h1>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <div class="share-bar flex-left">
+                            <ul class="vertical-ul">
+                                <li>
+                                    <a class="material-icons share-item" href="#">facebook</a>
+                                </li>
+                                <li>
+                                    <a class="material-icons share-item" href="#">facebook</a>
+                                </li>
+                                <li>
+                                    <a class="material-icons share-item" href="#">facebook</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <h3>top posts</h3>
+                        <ul class="dotted-list">
+                            @foreach ( var previewPost in Model.MostCommentedPosts ) {
+                                <li>
+                                    <a asp-action="Post" asp-controller="Home" asp-route-id="@previewPost.ID">
+                                        <div class="full-width">
+                                            <h4>@previewPost.Title</h4>
+                                            <span class="gray-text">
+                                                @previewPost.CommentsCount Comment @if ( previewPost.CommentsCount != 1 ) {
+                                                    <span>`s</span>
+                                                }
+                                            </span>
+                                        </div>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="also-like background-gray">
+    <div class="wrapper">
+        <h3 class="">You may also like</h3>
+        <section class="posts-container">
+            @foreach ( var post in Model.AlsoLikePosts ) {
+                <div class="post-item" onclick="goToPost(@post.ID)">
+                    <div style="background-image: url('/img/@post.ThumbImage.Path')" class="image-thumbnail"></div>
+                    <h1>@post.Title</h1>
+                </div>
+            }
+        </section>
+    </div>
+</section>
+
+<section class="comments margin">
+    <div class="wrapper">
+        <h3 class="margin-y">
+            @Model.Comments.Count() Comment @if ( Model.Comments.Count() != 1 ) {
+                <span>`s</span>
+            }
+        </h3>
+        <div class="comments-container">
+            @foreach ( var comment in Model.Comments ) {
+                <a class="anchor" name="comment-@comment.ID"></a>
+                <div class="comment-item">
+                    <div class="flex-column">
+                        <div style="background-color: @comment.PortraitColor" class="avatar"></div>
+                        <div class="text">
+                            <b>@comment.Author</b>
+                            <p>
+                                @if ( comment.CommentReply != null ) {
+                                    <a href="#comment-@comment.CommentReply.ID"><b>@comment.CommentReply.Author</b></a>
+                                }@comment.Text
+                            </p>
+                            <button class="reply" onclick="setReplyTo(@comment.ID, '@comment.Author', this.parentElement.parentElement.parentElement)">reply</button>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="comment-item">
+                <a name="add-comment-form"></a>
+                <div class="flex-column">
+                    <div class="avatar"></div>
+                    <div class="text">
+                        <form id="addComment" asp-action="AddComment" method="post">
+                            <input required type="hidden" name="idPost" value="@Model.Post.ID" />
+                            <input type="hidden" name="replyTo" id="replyTo" />
+                            <a href="#" class="replyToLink" id="replyToLink" onclick="hightlightComment(this)"></a>
+                            <input required type="text" name="authorName" placeholder="Your name..." />
+                            <textarea required placeholder="JOIN THE DISCUSSION" name="text"></textarea>
+                            <button type="submit">Post</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

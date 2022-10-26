@@ -1,17 +1,59 @@
-﻿@model List<PreviewPost>
+﻿@model IndexViewModel
 
 @{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="flex-wrap">
-    @foreach (var post in Model) {
-        <div class="post-item">
-            <div class="image-thumbnail"></div>
+<section  class="main-post margin">
+    <div class="main-post-item">
+        <div onclick="goToPost(@Model.MainPost.ID)" style="background-image: url('../img/@Model.MainPost.ThumbImage.Path')" class="cursor-pointer promo-img"></div>
+        <div class="margin">
+            <h3>@Model.MainPost.Category.Name</h3>
+            <h1>@Model.MainPost.Title</h1>
+            <p>@Model.MainPost.Description</p>
+            <div class="wrap gray-text">
+                <a href="Home/Post/@Model.MainPost.ID#add-comment-form">LEAVE A COMMENT</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="posts-container margin">
+    @foreach ( var post in Model.TopPosts ) {
+        <div class="post-item" onclick="goToPost(@post.ID)">
+            <div style="background-image: url('../img/@post.ThumbImage.Path')" class="image-thumbnail"></div>
             <h3>@post.Category.Name</h3>
             <h1>@post.Title</h1>
             <p>@post.Description.Substring(0, Math.Min(post.Description.Length, 150))</p>
         </div>
     }
-</div>
+</section>
 
+<section class="email-singup background-gray">
+    <div class="wrapper">
+        <h1 class="black-text">Sing up for our newsletter!</h1>
+        <div class="bottom-line">
+            <form asp-action="SubscribeToNewsletter" method="post" asp-controller="Home">
+                <input placeholder="Enter a valid email address" />
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<section class="margin">
+    <div class="posts-container">
+        @foreach ( var post in Model.OtherPosts ) {
+            <div class="post-item" onclick="goToPost(@post.ID)">
+                <div style="background-image: url('../img/@post.ThumbImage.Path')" class="image-thumbnail"></div>
+                <h3>@post.Category.Name</h3>
+                <h1>@post.Title</h1>
+                <p>@post.Description.Substring(0, Math.Min(post.Description.Length, 150))</p>
+            </div>
+        }
+    </div>
+
+    <div class="padding-to-center">
+        <button class="btn">Load more</button>
+    </div>
+</section>

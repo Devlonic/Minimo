@@ -20,5 +20,11 @@ namespace Minimo.Models {
         public Image? ThumbImage { get; set; }
 
         public virtual ICollection<Image>? Images { get; set; }
+
+        public virtual ICollection<Comment>? Comments { get; set; }
+
+        public override int GetHashCode() {
+            return ID;
+        }
     }
 }
