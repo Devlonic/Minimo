@@ -1,9 +1,9 @@
 ﻿@model PostViewModel
-
+@using Minimo.Services;
 <section class="main-post">
 
     <div class="main-post-item margin">
-        <div style="background-image: url('/img/@Model.Post.ThumbImage.Path')" class="promo-img"></div>
+        <img src="/img/@Model.Post.ThumbImage.Path" class="promo-img" />
     </div>
 
     <div class="post-wrapper">
@@ -119,9 +119,14 @@
             @foreach ( var comment in Model.Comments ) {
                 <a class="anchor" name="comment-@comment.ID"></a>
                 <div class="comment-item">
-                    <div class="flex-column">
-                        <div style="background-color: @comment.PortraitColor" class="avatar"></div>
+                    <div class="flex">
+                        <div style="background-color: @comment.PortraitColor" class="avatar">
+                            <span>@InitialsConverterService.GetInitials(comment.Author)</span>
+                        </div>
                         <div class="text">
+                            <p>
+                                <small>@comment.Date</small>
+                            </p>
                             <b>@comment.Author</b>
                             <p>
                                 @if ( comment.CommentReply != null ) {
@@ -136,8 +141,10 @@
 
             <div class="comment-item">
                 <a name="add-comment-form"></a>
-                <div class="flex-column">
-                    <div class="avatar"></div>
+                <div class="flex">
+                    <div class="avatar">
+                        <span>YN</span>
+                    </div>
                     <div class="text">
                         <form id="addComment" asp-action="AddComment" method="post">
                             <input required type="hidden" name="idPost" value="@Model.Post.ID" />

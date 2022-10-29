@@ -8,7 +8,18 @@
     <link rel="stylesheet" href="~/Minimo.styles.css" asp-append-version="true" />
     <link href="~/css/mi.css" rel="stylesheet">
 </head>
-<body>
+<body class="no-scroll" onload="disablePreloader()">
+    <div id='preloader' class='preloader'>
+        <img src="~/svg-loaders/oval.svg" alt="loading...">
+    </div>
+    <script id="post_item_template" type="text/template">
+        <div class="post-item" onclick="goToPost({{id}})">
+            <div style="background-image: url('../img/{{thumbImage.path}}')" class="image-thumbnail"></div>
+            <h3>{{category.name}}</h3>
+            <h1>{{title}}</h1>
+            <p>{{description}}</p>
+        </div>
+    </script>
     <header id="header" class="fixed">
         <nav >
             <a class="company nav-link" asp-area="" asp-controller="Home" asp-action="Index">Minimø</a>
@@ -63,6 +74,7 @@
         </footer>
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

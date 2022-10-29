@@ -7,12 +7,39 @@
     scroll-behavior: smooth;
     overflow-x: hidden;
 }
+.no-scroll {
+    height: 100vh;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.preloader {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+}
+
+.no-display {
+    display: none;
+}
+
+.preloader img {
+    width: 25vw;
+}
+
 body {
     overflow-y: hidden;
 }
 
 .replyedComment {
     outline: 1em solid black;
+}
+
+.hidden {
+    visibility: hidden;
 }
 
 .marginned {
@@ -120,6 +147,15 @@ p {
     justify-content: center;
 }
 
+.flex-column {
+    flex-direction: column;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+}
+
 .image-thumbnail {
     width: 100%;
     height: 20em;
@@ -129,10 +165,7 @@ p {
 
 .promo-img {
     width: 100%;
-    height: 575px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position-y: -150px;
+    height: 50%;
 }
 
 .images {
@@ -215,7 +248,7 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10% 0;
+    padding: 2em 0;
 }
 
 .btn {
@@ -298,16 +331,31 @@ footer {
 
 .comments-container {
 }
-
+.flex {
+    display: flex;
+}
 .comment-item {
     margin: 2em 0;
+    padding: 1em;
+    background-color: #F0F0F0;
 }
-
+input {
+    background-color: white;
+}
 .avatar {
     width: 6em;
     height: 6em;
     margin-right: 2em;
     border-radius: 50%;
+    background-color: dimgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.avatar span {
+    font-size: 3em;
+    color: snow;
 }
 
 .flex-column {
@@ -362,22 +410,22 @@ button[type='submit'] {
     padding: 1em 5em;
     border-radius: 0.5em;
     border: 2px solid #EDEDEB;
-    background: none;
+    background: #B6E7A2;
     font-size: 1.2em;
 }
 
     button[type='submit']:hover {
         padding: 1em 5em;
         border-radius: 0.5em;
-        border: 2px solid #EDEDEB;
-        background: #EDEDEB;
+        border: 2px solid #94DD8E;
+        background: #94DD8E;
     }
 
     button[type='submit']:active {
         padding: 1em 5em;
         border-radius: 0.5em;
-        border: 2px solid gray;
-        background: gray;
+        border: 2px solid #8ED678;
+        background: #8ED678;
     }
 
 .post {
@@ -452,4 +500,17 @@ button[type='submit'] {
 }
 .dotted-list * {
     margin: 1em 0;
+}
+small {
+    font-size: 0.8em;
+}
+img {
+    width: 100%;
+}
+.collapsed {
+    visibility:collapse;
+}
+.loading-spinner {
+    margin: 2em auto;
+    width: 5em;
 }

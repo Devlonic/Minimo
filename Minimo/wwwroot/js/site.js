@@ -3,6 +3,22 @@
 
 // Write your JavaScript code.
 
+function disablePreloader() {
+    const body = document.getElementsByTagName('body')[0];
+    const preloader = document.getElementById('preloader');
+
+    body.classList.remove("no-scroll");
+    preloader.classList.add('no-display');
+}
+
+function enablePreloader() {
+    const body = document.getElementsByTagName('body')[0];
+    const preloader = document.getElementById('preloader');
+
+    body.classList.add("no-scroll");
+    preloader.classList.remove('no-display');
+}
+
 function goToPost(post_id) {
     window.location.href = "/Home/Post/"+post_id;
 }
@@ -55,21 +71,38 @@ function hideSidebar() {
     contentWrapper.classList.remove('slided');
 }
 
-var sidebarDefaultOffset;
-window.addEventListener('scroll', (event) => {
-    //const sidebar = document.getElementById('sidebarWrapper');
-    //const header = document.getElementById('header');
-    //if (sidebarDefaultOffset === undefined) {
-    //    sidebarDefaultOffset = sidebar.offsetTop;
-    //}
+var countLoaded = 6;
 
-    //const y = sidebar.getBoundingClientRect().y;
-    //console.log();
-    //if (y - header.getBoundingClientRect().height <= 0) {
-    //    sidebar.style.top = header.getBoundingClientRect().height + sidebarDefaultOffset + y * -1 + "px";
-    //}
-});
+function loadMorePosts() {
+    const spinner = document.getElementById('loadMorePostLoadingSpinner');
+    spinner.classList.remove('collapsed');
+    fetch('Home/GetPosts?skip=' + countLoaded + '&take=' + 2).then(
+        function (responce) {
+            spinner.classList.add('collapsed');
 
-window.addEventListener('scroll', (event) => {
-    const sidebar = document.getElementById('sidebarWrapper');
-});
+            if (responce.status !== 200) {
+                console.error("cannot load more posts... status: " + responce.status);
+                return;
+            }
+
+            responce.json().then(function (json) {
+                const postTemplate = document.getElementById('post_item_template').innerHTML;
+                const container = document.getElementsByClassName('other-posts')[0];
+                const loadmoreBtn = document.getElementById('loadMoreBtn');
+                console.log(json);
+                if (json.length < 1) {
+                    loadmoreBtn.classList.add('hidden');
+                } else {
+                    for (var i = 0; i < json.length; i++) {
+                        json[i].description = json[i].description.substring(0, 150);
+                        var rendered = Mustache.render(postTemplate, json[i]);
+                        container.innerHTML += rendered;
+                    }
+                    countLoaded += json.length;
+                }
+            });
+        }
+    ).catch(function (error) {
+        console.error("fetch error: " + error);
+    });
+}

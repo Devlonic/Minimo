@@ -29,13 +29,18 @@ namespace Minimo.Controllers {
             };
             return View(vm);
         }
+        [HttpGet]
+        public async Task<IActionResult> GetPosts(int skip, int take) {
+            var posts = await _postsRepository.GetPreviewPostListAsync(skip, take);
+            return Json(posts);
+        }
 
         [HttpPost]
         public async Task<IActionResult> AddComment(int? idPost, string? authorName, string? text, int? replyTo) {
             if(idPost is not null && authorName is not null && text is not null) {
                 await _postsRepository.PushComment(idPost.Value, authorName, text, replyTo);
             }
-            return RedirectToAction(nameof(Post), "Home", new { id = idPost });
+            return Redirect($"Post/{idPost}#add-comment-form");
         }
 
         [HttpPost]

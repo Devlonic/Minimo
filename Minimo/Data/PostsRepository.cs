@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Minimo.Models;
 using System.Buffers.Text;
 using System.Text;
@@ -16,7 +17,13 @@ namespace Minimo.Data {
             return post;
         }
         public async Task<List<PreviewPost>> GetPreviewPostListAsync(int skip, int count) {
-            var posts = await db.Posts.Include(p => p.ThumbImage).Include(p => p.Category).Select(x => new PreviewPost() { ID = x.ID, Description = x.Description, ID_Category = x.ID_Category, ID_ThumbImage = x.ID_ThumbImage, Title = x.Title, ThumbImage = x.ThumbImage, Category = x.Category,  }).Skip(skip).Take(count).ToListAsync();
+            var posts = await db.Posts.
+                Include(p => p.ThumbImage).
+                Include(p => p.Category).
+                Select(x => new PreviewPost() { ID = x.ID, Description = x.Description, ID_Category = x.ID_Category, ID_ThumbImage = x.ID_ThumbImage, Title = x.Title, ThumbImage = x.ThumbImage, Category = x.Category,  }).
+                Skip(skip).
+                Take(count).
+                ToListAsync();
             return posts;
         }
         public async Task<Post?> GetPostAsync(int id) {
