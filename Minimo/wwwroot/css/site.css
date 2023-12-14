@@ -5,7 +5,6 @@
     font-size: 1em;
     text-decoration: none;
     scroll-behavior: smooth;
-    overflow-x: hidden;
 }
 .no-scroll {
     height: 100vh;
@@ -28,10 +27,6 @@
 
 .preloader img {
     width: 25vw;
-}
-
-body {
-    overflow-y: hidden;
 }
 
 .replyedComment {
@@ -438,54 +433,44 @@ button[type='submit'] {
     margin: 0 5%;
 }
 .content-wrapper {
-    width: 100%;
+    width: 80%;
     transition: 1s;
     display: flex;
     justify-content: center;
 }
 
-.content {
-
+.fixed-width {
+    width: 80em;
 }
-
-.slided {
-    width: 75%;
-    transition: 1s;
-}
-
 .sidebar-wrapper {
-    height: 100vh;
-    transition: 1s;
+    position: relative;
+    background-color: red;
     width: 20%;
-    left: 100%;
 }
 
-.fixed {
+.sidebar-wrapper-hidden {
+    right: -20%;
+}
+.full-screen {
+    width: 100%;
 }
 
 .sidebar {
+    position: sticky;
+    top: 0;
+    height: 80vh;
 }
-.full-width {
-    width: 100%;
+.sidebar-btn {
+    position: relative;
+    z-index: 100;
+    width: 2em;
+    height: 5em;
+    top: 40vh;
+    left: -2em;
+    background-color: blue;
+
 }
-.shown {
-    left: 75%;
-    transition: 1s;
-}
-.container {
-    width: 20%;
-    height: 100%;
-}
-.fixed-width {
-    width: 60vw;
-}
-#sidebarSlider {
-    border: 0;
-    background-color: darkcyan;
-}
-#sidebarSlider:hover{
-    background-color: cyan;
-}
+
 .flex-left {
     justify-content: left;
 }

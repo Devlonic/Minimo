@@ -8,8 +8,7 @@
 
     <div class="post-wrapper">
         <div class="post">
-
-            <div id="contentWrapper" class="content-wrapper slided">
+            <div id="contentWrapper" class="content-wrapper full-screen">
                 <div class="content">
                     <div class="fixed-width">
                         <div class="">
@@ -49,45 +48,44 @@
                     </div>
                 </div>
             </div>
-            <button id="sidebarSlider" onclick="slideSidebar()">slide</button>
 
-            <div id="sidebarWrapper" class="sidebar-wrapper fixed shown">
-                <div class="sidebar margin">
-                    <div>
-                        <img class="full-width" src="~/img/albanets.jpg" />
-                        <h1>About me</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                        <div class="share-bar flex-left">
-                            <ul class="vertical-ul">
-                                <li>
-                                    <a class="material-icons share-item" href="#">facebook</a>
-                                </li>
-                                <li>
-                                    <a class="material-icons share-item" href="#">facebook</a>
-                                </li>
-                                <li>
-                                    <a class="material-icons share-item" href="#">facebook</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <h3>top posts</h3>
-                        <ul class="dotted-list">
-                            @foreach ( var previewPost in Model.MostCommentedPosts ) {
-                                <li>
-                                    <a asp-action="Post" asp-controller="Home" asp-route-id="@previewPost.ID">
-                                        <div class="full-width">
-                                            <h4>@previewPost.Title</h4>
-                                            <span class="gray-text">
-                                                @previewPost.CommentsCount Comment @if ( previewPost.CommentsCount != 1 ) {
-                                                    <span>`s</span>
-                                                }
-                                            </span>
-                                        </div>
-                                    </a>
-                                </li>
-                            }
+            <div class="sidebar-wrapper sidebar-wrapper-hidden">
+                <div class="sidebar">
+                    <div class="sidebar-btn"></div>
+                    <img class="full-width" src="~/img/albanets.jpg" />
+                    <h1>About me</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <div class="share-bar flex-left">
+                        <ul class="vertical-ul">
+                            <li>
+                                <a class="material-icons share-item" href="#">facebook</a>
+                            </li>
+                            <li>
+                                <a class="material-icons share-item" href="#">facebook</a>
+                            </li>
+                            <li>
+                                <a class="material-icons share-item" href="#">facebook</a>
+                            </li>
                         </ul>
                     </div>
+                    <h3>top posts</h3>
+                    <ul class="dotted-list">
+                        @foreach ( var previewPost in Model.MostCommentedPosts ) {
+                            <li>
+                                <a asp-action="Post" asp-controller="Home" asp-route-id="@previewPost.ID">
+                                    <div class="full-width">
+                                        <h4>@previewPost.Title</h4>
+                                        <span class="gray-text">
+                                            @previewPost.CommentsCount Comment @if ( previewPost.CommentsCount != 1 ) {
+                                                <span>`s</span>
+                                            }
+                                        </span>
+                                    </div>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
                 </div>
             </div>
         </div>

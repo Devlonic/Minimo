@@ -6,13 +6,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<MainDbContext>(options=>options.UseSqlServer(builder.Configuration.GetConnectionString("default")));
+builder.Services.AddDbContext<MainDbContext>(
+    options => options.UseSqlite(builder.Configuration.GetConnectionString("sqlite")));
 builder.Services.AddScoped<IPostsRepository, PostsRepository>();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if ( !app.Environment.IsDevelopment() ) {
+if (!app.Environment.IsDevelopment()) {
     app.UseExceptionHandler("/Home/Error");
 }
 app.UseStaticFiles();

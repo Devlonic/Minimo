@@ -5,8 +5,9 @@
 }
 
 <section  class="main-post margin">
+    @if (Model.MainPost != null) {
     <div class="main-post-item">
-        <img onclick="goToPost(@Model.MainPost.ID)" src="../img/@Model.MainPost.ThumbImage.Path" class="cursor-pointer promo-img" />
+        <img onclick="goToPost(@Model.MainPost?.ID)" src="../img/@Model.MainPost.ThumbImage.Path" class="cursor-pointer promo-img" />
         <div class="margin">
             <h3>@Model.MainPost.Category.Name</h3>
             <h1>@Model.MainPost.Title</h1>
@@ -16,6 +17,7 @@
             </div>
         </div>
     </div>
+    }
 </section>
 
 <section class="posts-container margin">
